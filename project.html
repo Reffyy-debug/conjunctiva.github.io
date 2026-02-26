@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Защита проекта | 9 класс</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ===== ОБЩИЕ СТИЛИ ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(255, 59, 154, 0.12) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 70%, rgba(255, 59, 154, 0.08) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    :root {
+      --pink: #ff3b9a;
+      --pink-light: #ff80bf;
+      --pink-dark: #cc2e7a;
+      --dark: #0a0a0a;
+      --dark-light: #151515;
+      --glass-bg: rgba(20, 20, 20, 0.7);
+      --border-glow: 0 0 15px rgba(255, 59, 154, 0.3);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 0;
+    }
+
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff 0%, var(--pink) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(255, 59, 154, 0.5);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+      color: var(--pink);
+      text-shadow: 0 0 10px rgba(255, 59, 154, 0.5);
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--pink), transparent);
+      border-radius: 4px;
+      box-shadow: 0 0 20px var(--pink);
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 400;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      color: rgba(255, 255, 255, 0.7);
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* Шапка */
+    header {
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255, 59, 154, 0.2);
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--pink), #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--pink);
+      transition: width 0.3s;
+      box-shadow: 0 0 10px var(--pink);
+    }
+
+    .nav-links a:hover {
+      color: var(--pink);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Герой страницы защиты */
+    .hero-small {
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Секции */
+    section {
+      padding: 4rem 0;
+      position: relative;
+    }
+
+    .section-light {
+      background: rgba(21, 21, 21, 0.8);
+      backdrop-filter: blur(5px);
+      border-top: 1px solid rgba(255, 59, 154, 0.1);
+      border-bottom: 1px solid rgba(255, 59, 154, 0.1);
+    }
+
+    /* Сетка для скриншотов */
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .screenshot-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 59, 154, 0.2);
+      border-radius: 32px;
+      padding: 1.8rem;
+      transition: all 0.4s;
+      backdrop-filter: blur(5px);
+    }
+
+    .screenshot-card:hover {
+      border-color: var(--pink);
+      box-shadow: 0 0 40px rgba(255, 59, 154, 0.3);
+      transform: translateY(-5px);
+    }
+
+    .screenshot-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--pink);
+      text-align: center;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 200px;
+      background: #1a1a1a;
+      border-radius: 24px;
+      border: 2px dashed var(--pink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: 0.3s;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .image-placeholder::after {
+      content: '🖼️';
+      position: absolute;
+      font-size: 3rem;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .image-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .image-placeholder:hover img {
+      transform: scale(1.05);
+    }
+
+    .image-placeholder:hover {
+      opacity: 0.8;
+      box-shadow: 0 0 30px var(--pink);
+    }
+
+    .screenshot-card p {
+      font-size: 0.95rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Логотип крупно */
+    .big-logo {
+      width: 200px;
+      height: 200px;
+      border-radius: 40px;
+      background: linear-gradient(145deg, var(--pink), var(--pink-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      color: #0a0a0a;
+      box-shadow: 0 0 50px var(--pink);
+      margin: 2rem auto;
+      overflow: hidden;
+      transition: 0.5s;
+      cursor: pointer;
+    }
+
+    .big-logo:hover {
+      transform: rotate(5deg) scale(1.05);
+      box-shadow: 0 0 70px var(--pink);
+    }
+
+    .big-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Автор */
+    .author-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 59, 154, 0.2);
+      border-radius: 48px;
+      padding: 2.5rem;
+      text-align: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .author-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, var(--pink), var(--pink-light));
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #0a0a0a;
+      box-shadow: 0 0 30px var(--pink);
+    }
+
+    .author-card h3 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .author-card p {
+      margin: 0 auto;
+    }
+
+    /* Контакты в защите */
+    .contact-simple {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .contact-simple div {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .contact-simple i {
+      color: var(--pink);
+      font-size: 1.8rem;
+      filter: drop-shadow(0 0 10px var(--pink));
+    }
+
+    /* Футер */
+    footer {
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(255, 59, 154, 0.2);
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Лайтбокс */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      position: relative;
+      border: 3px solid var(--pink);
+      border-radius: 20px;
+      box-shadow: 0 0 50px var(--pink);
+    }
+
+    .lightbox-content img {
+      width: 100%;
+      height: auto;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 20px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: 0.3s;
+      background: none;
+      border: none;
+    }
+
+    .lightbox-close:hover {
+      color: var(--pink);
+      transform: scale(1.2);
+    }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <a href="index.html" class="logo">NEURO<span style="color:var(--pink);">SITE</span></a>
+      <nav class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="#about">О проекте</a>
+        <a href="#screenshots">Скриншоты</a>
+        <a href="#author">Автор</a>
+        <a href="funny.html">😂 Приколы</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Герой защиты -->
+    <section class="hero-small">
+      <div class="container" style="text-align: center;">
+        <h1>Проект 9 класса</h1>
+        <p style="font-size: 1.5rem; color: var(--pink);">Создание сайтов с помощью нейросетей</p>
+        <p style="max-width: 700px; margin: 1rem auto;">Индивидуальный проект ученика 9 класса. Здесь представлены этапы работы, скриншоты взаимодействия с нейросетями и результат.</p>
+      </div>
+    </section>
+
+    <!-- О проекте -->
+    <section id="about" class="section-light">
+      <div class="container">
+        <h2>О проекте</h2>
+        <p><span style="color: var(--pink); font-weight: 600;">Цель:</span> Исследовать возможности нейросетей (ChatGPT, Gemini, DeepSeek) для создания веб-страниц и разработать готовый сайт-визитку.</p>
+        <p><span style="color: var(--pink); font-weight: 600;">Задачи:</span></p>
+        <ul>
+          <li>Изучить инструменты генерации контента.</li>
+          <li>Создать с их помощью дизайн, тексты и код.</li>
+          <li>Собрать итоговый сайт из трех страниц (пример и защита, дополнительная страница).</li>
+          <li>Подготовить презентацию и защитить проект.</li>
+        </ul>
+        <p><span style="color: var(--pink); font-weight: 600;">Актуальность:</span>Современные технологии активно развиваются, и нейросети становятся неотъемлемой частью цифрового мира. Раньше создание сайта требовало глубоких знаний языков программирования, таких как HTML, CSS и JavaScript, что делало веб-разработку доступной только узкому кругу специалистов. Сегодня нейросети позволяют автоматизировать этот процесс, кардинально меняя подход к работе.
+
+Благодаря инструментам искусственного интеллекта, разработка веб-ресурсов стала доступна обычным людям. Нейросети позволяют генерировать качественный код и дизайн по простому текстовому описанию, что значительно упрощает процесс и позволяет любому человеку реализовать свои идеи в интернете без долгого и сложного обучения. Данный проект актуален, так как он на практике демонстрирует возможность создания полноценного цифрового продукта с использованием современных нейросетевых моделей.</p>
+      </div>
+    </section>
+
+    <!-- Скриншоты процесса (6 штук в нужном порядке) -->
+    <section id="screenshots">
+      <div class="container">
+        <h2>Скриншоты процесса</h2>
+        <div class="screenshot-grid">
+          <!-- 1. ChatGPT -->
+          <div class="screenshot-card">
+            <h3>ChatGPT — генерация промта для создания кода</h3>
+            <div class="image-placeholder" onclick="openLightbox(this.querySelector('img').src)">
+              <img src="images/screen-gpt.png" alt="ChatGPT">
+            </div>
+            <p>Запрос на создание каркаса сайта и текстов для визитки.</p>
+          </div>
+          <!-- 2. DeepSeek -->
+          <div class="screenshot-card">
+            <h3>DeepSeek — создание кода</h3>
+            <div class="image-placeholder" onclick="openLightbox(this.querySelector('img').src)">
+              <img src="images/screen-deep.png" alt="DeepSeek">
+            </div>
+            <p>Автодополнение CSS и HTML прямо в редакторе.</p>
+          </div>
+          <!-- 3. Правки и доработки -->
+          <div class="screenshot-card">
+            <h3>Правки и доработки</h3>
+            <div class="image-placeholder" onclick="openLightbox(this.querySelector('img').src)">
+              <img src="images/screen-deep2.png" alt="Правки">
+            </div>
+            <p>Финализация дизайна, адаптация под мобильные.</p>
+          </div>
+          <!-- 4. Gemini (создание логотипа) -->
+          <div class="screenshot-card">
+            <h3>Gemini — создание логотипа</h3>
+            <div class="image-placeholder" onclick="openLightbox(this.querySelector('img').src)">
+              <img src="images/screen-gemini.png" alt="Gemini">
+            </div>
+            <p>У каждого сайта должен быть логотип.</p>
+          </div>
+          <!-- 5. Готовая страница index.html -->
+          <div class="screenshot-card">
+            <h3>Готовая страница (index.html)</h3>
+            <div class="image-placeholder" onclick="openLightbox(this.querySelector('img').src)">
+              <img src="images/screen-vizitka.png" alt="Главная">
+            </div>
+            <p>Пример сайта-визитки, который вы видели на первой странице.</p>
+          </div>
+          <!-- 6. Эта страница защиты -->
+          <div class="screenshot-card">
+            <h3>Эта страница защиты</h3>
+            <div class="image-placeholder" onclick="openLightbox(this.querySelector('img').src)">
+              <img src="images/screen-otchet.png" alt="Защита">
+            </div>
+            <p>Код этой страницы также частично сгенерирован нейросетями.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Логотип, созданный нейросетью (отдельно) -->
+    <section class="section-light">
+      <div class="container" style="text-align: center;">
+        <h2>Логотип, сгенерированный Gemini</h2>
+        <div class="big-logo" onclick="openLightbox(this.querySelector('img').src)">
+          <img src="images/logo-gemini.png" alt="Логотип">
+        </div>
+        <p style="font-style: italic;">Промпт: "Привет! Сделай логотип для моего сайта о нейросетях, розово-черный, минимализм, без текста в формате png"</p>
+      </div>
+    </section>
+
+    <!-- Две плитки для доработок (ДО и ПОСЛЕ) -->
+    <section>
+      <div class="container">
+        <h2>Доработки проекта</h2>
+        <div class="screenshot-grid" style="grid-template-columns: repeat(2, 1fr);">
+          <!-- Доработка ДО -->
+          <div class="screenshot-card">
+            <h3>Доработка ДО</h3>
+            <div class="image-placeholder" onclick="openLightbox(this.querySelector('img').src)">
+              <img src="images/screen-do.png" alt="До">
+            </div>
+            <p>Первая версия сайта, требующая улучшений.</p>
+          </div>
+          <!-- Доработка ПОСЛЕ -->
+          <div class="screenshot-card">
+            <h3>Доработка ПОСЛЕ</h3>
+            <div class="image-placeholder" onclick="openLightbox(this.querySelector('img').src)">
+              <img src="images/screen-posle.png" alt="После">
+            </div>
+            <p>Финальная версия после правок.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Автор -->
+    <section id="author" class="section-light">
+      <div class="container">
+        <h2>Автор проекта</h2>
+        <div class="author-card">
+          <div class="author-avatar">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <h3>Матвей Боровков</h3>
+          <p>Ученик 9Ж класса</p>
+          <p style="margin-top: 1rem;">Руководитель проекта: Ляйля Фаиловна</p>
+          <p>Школа №99, г. Ярославль</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Контакты -->
+    <section>
+      <div class="container" style="text-align: center;">
+        <h2>Контакты для связи</h2>
+        <div class="contact-simple">
+          <div><i class="fas fa-envelope"></i> blablabla@gmail.com</div>
+          <div><i class="fas fa-phone-alt"></i> +7 здесь типо номер мог бы быть</div>
+          <div><i class="fab fa-github"></i> github.com/avifile</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 Защита проекта 9 класс. Все материалы созданы с помощью нейросетей и доработаны автором.</p>
+    </div>
+  </footer>
+
+  <!-- Лайтбокс (модальное окно) -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="">
+    </div>
+  </div>
+
+  <script>
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(event) {
+      if (event.target === document.getElementById('lightbox') || event.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
+</body>
+</html>
